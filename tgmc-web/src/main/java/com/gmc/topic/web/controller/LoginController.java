@@ -44,6 +44,7 @@ public class LoginController extends BaseController{
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request){
 		log.info(">>>>>>>>>Now enter into login method<<<<<<<<<<<");
+		log.info(">>>>>>>>>Now left login method<<<<<<<<<<<");
 		return "hello";
 	}
 	
