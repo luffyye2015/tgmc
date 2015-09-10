@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="tgmc-web"
+  id="myeclipse.1436770133368"
+  context-root="/tgmcweb"
+  j2ee-spec="1.7"
+  archive="tgmc-web.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

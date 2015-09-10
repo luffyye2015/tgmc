@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="tgmc-remote"
+  id="myeclipse.1436770134785"
+  context-root="/remoteweb"
+  j2ee-spec="1.7"
+  archive="tgmc-remote.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

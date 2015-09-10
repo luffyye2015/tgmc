@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<#include "/views/common/meta.html"/>
+<#include "/views/common/head.html"/>
+<title>用户信息</title>
+<script type="text/javascript">
+function ajaxTest()  
+    {  
+    var sid=$("#sid").val();
+    var userAccount=$("#userAccount").val();
+    var pwd=$("#pwd").val();
+    var email=$("#email").val();
+    var types=[];
+    $("input[name='tp']:checked").each(function(){
+        //alert($(this).val());
+        types.push($(this).val());
+    }   
+    );
+    
+    var jsonParam={"sid":sid,"userAccount":userAccount,"pwd":pwd,"email":email,"types":types};
+        $.ajax( {  
+            type : 'GET',  
+            //contentType : 'application/json',     
+            url : '${ctx}/user/info/update',     
+            async: false,//禁止ajax的异步操作，使之顺序执行。  
+            dataType : 'json', 
+            data:jsonParam, 
+            success : function(data,textStatus){  
+                alert(data.msg);
+                //跳转到个人中心页面
+        	    location.href="${ctx}/user/info/query";  
+            },  
+            error : function(data,textstatus){  
+                jBox.alert(data.responseText);  
+            }  
+        });  
+    }
+</script>
+
+</head>
+
+<body class="FrameMain">
+<div class="top"></div>
+
+<div class="main_title">
+	<b></b>
+	<div class="main_tt_right fr">
+		
+	</div>
+</div>
+
+<div class="main_form">
+
+<table width="100%" border="0"> 
+<input type="hidden" name="sid" id="sid" value="${user.sid}"/>
+  <tr>
+    <th>用户名：</th>
+    <td><input name="userAccount" id="userAccount" type="text"  value="${user.userAccount}"/><span class="c_red">*</span></td>
+  </tr>
+  <tr>
+    <th>设置新密码：<input name="pwd" id="pwd" type="text"  value=""/></th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>email：<input name="email" id="email" type="text"  value="${user.email}"/></th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>行业：
+     <#list typeList as list> 
+       <#if types??>
+         <#list types as type>
+          <input name="tp" type="checkbox" value="${list.code}" <#if type==list.code>checked</#if>  </#list> />${list.desc}         
+       <#else>
+          <input name="tp" type="checkbox" value="${list.code}"/>${list.desc}
+       </#if>
+       <#if (list_index+1)%6==0>
+         <br>
+       </#if>   
+     </#list>
+    </th>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td>&nbsp;</td>
+    <td><input name="addSubmit" type="button" onclick="ajaxTest()" value="提交" /></td>
+  </tr>
+</table>
+
+</div>
+</body>
+
+</html>

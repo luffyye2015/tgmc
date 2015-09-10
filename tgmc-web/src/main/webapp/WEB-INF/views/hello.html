@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>login</title>
+	<#include "/views/common/meta.html"/>
+    <#include "/views/common/head.html"/>
+<script type="text/javascript">
+  $(function(){
+	$("#subLogin").click(function(){	     
+		 if(checkLogin()){
+		    var userAccount=$.trim($("#userAccount").val());
+		    var pwd=$("#pwd").val();
+		    var jsonParam={"userAccount":userAccount,"pwd":pwd};
+		    //var jsonParam=$("#loginForm").serializeArray();
+         $.ajax( {  
+        	type : 'POST',  
+        	//contentType : 'application/json',     
+        	url : '${ctx}/doLogin',     
+        	async: false,//禁止ajax的异步操作，使之顺序执行。  
+        	dataType : 'json', 
+        	data:jsonParam,        
+        	success : function(data,textStatus){             
+        	    if(data.flag){
+        	       //跳转到个人中心页面
+        	       location.href="${ctx}/user/info/query";       	             	       
+        	    }else{
+        	       jBox.alert(data.message);
+        	    }
+        	},  
+            error : function(data,textstatus){ 
+                jBox.alert(data.responseText); 
+             }  
+         }); 
+		}
+         
+	  });			   
+  });
+  
+  function checkLogin(){
+      if($.trim($("#userAccount").val())==""){
+         jBox.alert("请填写用户名");
+         return false;
+      }
+      if($.trim($("#pwd").val())==""){
+         jBox.alert("请填写密码");
+         return false;
+      }
+      
+      return true;
+  }
+ 
+</script>	
+	
+	</head>
+  		
+	<body>
+	 <form action="">
+		<h1><@s.m code="page.hello.label.login"/></h1>
+		<div>
+			<h3><@s.m code="page.hello.login.username"/>:</h3>
+			<input type="text" name="userAccount" id="userAccount" value=""/>
+		</div>
+		<div>
+			<h3><@s.m code="page.hello.login.pwd"/></h3>
+			<input type="password" name="pwd" id="pwd" value=""/>
+		</div>
+		<div>
+			<h3></h3>
+			<input type="button" id="subLogin" value="<@s.m code='page.hello.login.submit'/>" />
+		</div>
+	</form>	
+	</body>
+</html>
