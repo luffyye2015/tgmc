@@ -43,6 +43,7 @@ public class LoginController extends BaseController{
 	 */
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request){
+		log.info(">>>>>>>>>Now enter into login method<<<<<<<<<<<");
 		return "hello";
 	}
 	
